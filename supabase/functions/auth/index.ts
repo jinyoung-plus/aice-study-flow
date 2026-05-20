@@ -17,7 +17,10 @@ Deno.serve(async (req) => {
 
     if (!nick) return json({ error: "별칭을 입력해 주세요." }, 400);
     if (nick.length > 30) return json({ error: "별칭은 30자 이하로 입력해 주세요." }, 400);
-    if (!/^\d{4}$/.test(pw)) return json({ error: "비밀번호는 숫자 4자리여야 합니다." }, 400);
+    if (!pw) return json({ error: "비밀번호를 입력해 주세요." }, 400);
+    if (action === "signup" && !/^\d{4}$/.test(pw)) {
+      return json({ error: "비밀번호는 숫자 4자리여야 합니다." }, 400);
+    }
 
     if (action === "signup") {
       const { data: exists } = await supabase
