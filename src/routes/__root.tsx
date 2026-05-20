@@ -58,8 +58,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "AICE Associate 학습 도구" },
-      { name: "description", content: "공무원·일반인을 위한 AICE Associate 시험 대비 학습 웹앱" },
+      { title: "AICE Associate 학습" },
+      { name: "description", content: "AICE Associate 시험 대비 학습 웹앱" },
+      { property: "og:title", content: "AICE Associate 학습" },
+      { name: "twitter:title", content: "AICE Associate 학습" },
+      { property: "og:description", content: "AICE Associate 시험 대비 학습 웹앱" },
+      { name: "twitter:description", content: "AICE Associate 시험 대비 학습 웹앱" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/663423e2-c9a3-480c-a104-4d7213ed0932/id-preview-7a650e6b--3028a436-5e90-4dbe-9443-d7a09c8347cb.lovable.app-1779284164423.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/663423e2-c9a3-480c-a104-4d7213ed0932/id-preview-7a650e6b--3028a436-5e90-4dbe-9443-d7a09c8347cb.lovable.app-1779284164423.png" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: "website" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
