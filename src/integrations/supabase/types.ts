@@ -14,7 +14,221 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      cheatsheets: {
+        Row: {
+          content_markdown: string
+          id: number
+          sort_order: number
+          subtopic_id: number
+          title: string
+        }
+        Insert: {
+          content_markdown: string
+          id?: never
+          sort_order: number
+          subtopic_id: number
+          title: string
+        }
+        Update: {
+          content_markdown?: string
+          id?: never
+          sort_order?: number
+          subtopic_id?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cheatsheets_subtopic_id_fkey"
+            columns: ["subtopic_id"]
+            isOneToOne: false
+            referencedRelation: "subtopics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      flashcards: {
+        Row: {
+          back_text: string
+          front_text: string
+          id: number
+          subtopic_id: number
+        }
+        Insert: {
+          back_text: string
+          front_text: string
+          id?: never
+          subtopic_id: number
+        }
+        Update: {
+          back_text?: string
+          front_text?: string
+          id?: never
+          subtopic_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "flashcards_subtopic_id_fkey"
+            columns: ["subtopic_id"]
+            isOneToOne: false
+            referencedRelation: "subtopics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      questions: {
+        Row: {
+          correct_answer: string
+          explanation: string | null
+          id: number
+          options: Json | null
+          question_text: string
+          subtopic_id: number
+          type: string
+        }
+        Insert: {
+          correct_answer: string
+          explanation?: string | null
+          id?: never
+          options?: Json | null
+          question_text: string
+          subtopic_id: number
+          type: string
+        }
+        Update: {
+          correct_answer?: string
+          explanation?: string | null
+          id?: never
+          options?: Json | null
+          question_text?: string
+          subtopic_id?: number
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "questions_subtopic_id_fkey"
+            columns: ["subtopic_id"]
+            isOneToOne: false
+            referencedRelation: "subtopics"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      stages: {
+        Row: {
+          id: number
+          name: string
+          sort_order: number
+        }
+        Insert: {
+          id: number
+          name: string
+          sort_order: number
+        }
+        Update: {
+          id?: number
+          name?: string
+          sort_order?: number
+        }
+        Relationships: []
+      }
+      subtopics: {
+        Row: {
+          hint: string | null
+          id: number
+          name: string
+          sort_order: number
+          stage_id: number
+        }
+        Insert: {
+          hint?: string | null
+          id?: never
+          name: string
+          sort_order: number
+          stage_id: number
+        }
+        Update: {
+          hint?: string | null
+          id?: never
+          name?: string
+          sort_order?: number
+          stage_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subtopics_stage_id_fkey"
+            columns: ["stage_id"]
+            isOneToOne: false
+            referencedRelation: "stages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_progress: {
+        Row: {
+          answered_at: string
+          id: number
+          is_correct: boolean
+          question_id: number
+          user_answer: string | null
+          user_id: string
+        }
+        Insert: {
+          answered_at?: string
+          id?: never
+          is_correct: boolean
+          question_id: number
+          user_answer?: string | null
+          user_id: string
+        }
+        Update: {
+          answered_at?: string
+          id?: never
+          is_correct?: boolean
+          question_id?: number
+          user_answer?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_progress_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: false
+            referencedRelation: "questions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "user_progress_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      users: {
+        Row: {
+          created_at: string
+          id: string
+          is_admin: boolean
+          nickname: string
+          password_hash: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_admin?: boolean
+          nickname: string
+          password_hash: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_admin?: boolean
+          nickname?: string
+          password_hash?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
