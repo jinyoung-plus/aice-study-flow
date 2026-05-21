@@ -6,7 +6,7 @@
 
 ## 한 줄 요약
 
-AICE Associate(KT·한국경제신문 공동주관, 국가공인 민간자격) 자격증 시험을 워크플로우 기반으로 학습할 수 있는 도구. 별칭 + 4자리 비밀번호로 가볍게 가입하고, "데이터분석 → 전처리 → 모델링" 3단계를 따라 체계적으로 학습한다.
+AICE Associate(KT·한국경제신문 공동주관) 국가공인 자격시험을 워크플로우 기반으로 학습할 수 있는 도구. 별칭 + 4자리 비밀번호로 가볍게 가입하고, "데이터분석 → 전처리 → 모델링" 3단계를 따라 체계적으로 학습한다.
 
 ## 왜 만들었는가
 
@@ -36,13 +36,18 @@ AICE Associate는 일반적인 ML 강의 커리큘럼과 달리 **실제 분석 
 ### 7개 테이블 DB 스키마
 
 - `users` · `stages` · `subtopics` · `questions` · `flashcards` · `cheatsheets` · `user_progress`
-- 비밀번호는 pgcrypto의 bcrypt로 해시 후 저장
+- 비밀번호는 bcrypt로 해시 후 저장
 - 학습 이력은 시도마다 한 행씩 누적 (시간순 학습곡선 시각화 가능)
 
 ### 학습 콘텐츠 구조
 
-- 3단계: 데이터분석 · 전처리 · 모델링
-- 14개 sub-topic (라이브러리, 파일로드, 데이터 조작[groupby/merge/concat], 시각화, 이상치, 결측치, 원핫 인코딩, 데이터 분리, 스케일링, ML학습, 변수중요도 시각화, 성능평가, 딥러닝, 학습곡선)
+- **3단계**: 데이터분석 · 전처리 · 모델링
+- **14개 sub-topic** 전체에 콘텐츠 시드 완료
+  - 데이터분석(5): 라이브러리 · 파일로드 · 데이터 조작(groupby/merge/concat) · 단변수 시각화 · 이변수 시각화
+  - 전처리(5): 이상치(IQR) · 결측치 · 원핫 인코딩 · 데이터 분리(train_test_split) · 스케일링
+  - 모델링(4): ML학습(DecisionTree/RandomForest) · 변수중요도 시각화 · 성능평가 · 딥러닝(Sequential) · 학습곡선
+- 각 sub-topic마다 **4탭 학습**: 치트시트 / 플래시카드 / 빈칸채우기 / 퀴즈
+- 시험장 함정 포인트(예: `df.get_dummies()` 금지, `fillna(inplace=True)` 금지, `stratify=y`는 분류 전용, `feature_importances_` 끝 언더스코어 등)를 퀴즈·해설에 반영
 
 ## 데모 사용법
 
@@ -65,21 +70,20 @@ AICE Associate는 일반적인 ML 강의 커리큘럼과 달리 **실제 분석 
 ## 기술 스택
 
 - **프론트엔드**: React + TypeScript, Tailwind CSS, React Router, recharts
-- **백엔드**: Supabase (PostgreSQL + pgcrypto + Edge Functions)
-- **인증**: 자체 인증 (Supabase Auth 미사용 — 4자리 비밀번호 정책 때문)
+- **백엔드**: Supabase (PostgreSQL · 인증 · Edge Functions)
 - **배포**: Lovable Cloud
 
 ## 한계 및 향후 계획
 
 ### 현재 한계
 
-- "라이브러리" sub-topic 외 13개는 placeholder 콘텐츠만 들어있음 (Lovable 무료 플랜 일일 5크레딧 한도 내에서 풀스택 구조 완성을 우선)
 - 라이트 식별 방식이라 비밀번호 복구 기능 없음 (분실 시 새 별칭으로 재가입)
 - 관리자 자격증명이 코드에 노출됨 (데모 한정)
+- 모바일 환경에서 일부 코드 블록의 가독성이 제한적
 
 ### 향후 계획
 
-- 14개 sub-topic 콘텐츠 전체 보강
 - 환경변수 기반 관리자 자격증명으로 전환
 - 학습곡선 시각화(시간순 정답률 그래프) 추가
 - 사용자 간 학습 진도 비교 기능
+- sub-topic별 콘텐츠 추가 보강 (각 영역 문제 수 확대)
