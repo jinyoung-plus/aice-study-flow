@@ -21,8 +21,8 @@ function AuthPage() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!/^\d{4}$/.test(pw)) {
-      toast.error("비밀번호는 숫자 4자리여야 합니다.");
+    if (pw.length !== 4) {
+      toast.error("비밀번호는 4자리여야 합니다.");
       return;
     }
     if (mode === "signup" && pw !== pw2) {
