@@ -21,8 +21,8 @@ function AuthPage() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (!/^\d{4}$/.test(pw)) {
-      toast.error("비밀번호는 숫자 4자리여야 합니다.");
+    if (pw.length !== 4) {
+      toast.error("비밀번호는 4자리여야 합니다.");
       return;
     }
     if (mode === "signup" && pw !== pw2) {
@@ -68,14 +68,13 @@ function AuthPage() {
               />
             </div>
             <div>
-              <label className="mb-1 block text-xs font-medium text-slate-700">비밀번호 (숫자 4자리)</label>
+              <label className="mb-1 block text-xs font-medium text-slate-700">비밀번호 (4자리)</label>
               <input
                 value={pw}
-                onChange={(e) => setPw(e.target.value.replace(/\D/g, "").slice(0, 4))}
-                inputMode="numeric"
+                onChange={(e) => setPw(e.target.value.slice(0, 4))}
                 type="password"
-                pattern="\d{4}"
                 maxLength={4}
+                minLength={4}
                 className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm tracking-widest outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
                 required
               />
@@ -85,10 +84,10 @@ function AuthPage() {
                 <label className="mb-1 block text-xs font-medium text-slate-700">비밀번호 확인</label>
                 <input
                   value={pw2}
-                  onChange={(e) => setPw2(e.target.value.replace(/\D/g, "").slice(0, 4))}
-                  inputMode="numeric"
+                  onChange={(e) => setPw2(e.target.value.slice(0, 4))}
                   type="password"
                   maxLength={4}
+                  minLength={4}
                   className="w-full rounded-md border border-slate-300 px-3 py-2 text-sm tracking-widest outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
                   required
                 />
